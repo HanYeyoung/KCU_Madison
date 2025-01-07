@@ -6,17 +6,17 @@ const ItemSchema = new mongoose.Schema({
         required: true,
     },
     teamMember: {
-        type: Array,
+        type: [String], 
         required: true,
     },
     photo: {
-        type: Array,
+        type: [String], 
         required: true,
     },
     demoVideo: {
         type: String,
-        required: true,
-        option: nullable,
+        required: false, 
+        default: null, 
     },
     projectName: {
         type: String,
@@ -28,9 +28,9 @@ const ItemSchema = new mongoose.Schema({
     },
     github_link: {
         type: String,
-        required: true,
-        option: nullable,
+        required: false, 
+        default: null, 
     },
 });
 
-export default mongoose.models.test_db || mongoose.model("test_db", ItemSchema);
+export default mongoose.models.Item || mongoose.model("Item", ItemSchema);
