@@ -31,6 +31,15 @@ const ItemSchema = new mongoose.Schema({
         required: false, 
         default: null, 
     },
+    semester: {
+        type: String,
+        required: true,
+    },
+    used_language: {
+        type: [String],
+        required: true,
+    }
+
 });
 
 export default mongoose.models.Item || mongoose.model("Item", ItemSchema);
