@@ -50,14 +50,14 @@ export default async function handler(req, res) {
 
       const photoFiles = req.files?.photo || [];
 
-      const photoUrls = await Promise.all(photoFiles.map(file =>
+      const photoKeys = await Promise.all(photoFiles.map(file =>
         uploadToS3(file.buffer, file.originalname, file.mimetype)
       ));
 
       const missingFields = [];
       if (!teamName) missingFields.push("teamName");
       if (!teamMember) missingFields.push("teamMember");
-      if (!photoUrls || photoUrls.length === 0) missingFields.push("photo");
+      if (!photoKeys || photoKeys.length === 0) missingFields.push("photo");
       if (!projectName) missingFields.push("projectName");
       if (!description) missingFields.push("description");
       if (!semester) missingFields.push("semester");
@@ -73,7 +73,7 @@ export default async function handler(req, res) {
       const newItem = new Item({
         teamName,
         teamMember: Array.isArray(teamMember) ? teamMember : [teamMember],
-        photo: photoUrls,
+        photo: photoKeys,
         projectName,
         description,
         demoVideo,

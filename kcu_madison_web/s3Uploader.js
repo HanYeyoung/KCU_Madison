@@ -18,6 +18,7 @@ const s3 = new AWS.S3();
  * @param {string} mimetype - 파일 MIME 타입
  * @returns {Promise<string>} - S3에 업로드된 파일의 URL
  */
+
 export const uploadToS3 = async (buffer, originalname, mimetype) => {
   const key = `uploads/${uuidv4()}-${originalname}`;
 
@@ -29,8 +30,8 @@ export const uploadToS3 = async (buffer, originalname, mimetype) => {
   };
 
   try {
-    const uploadResult = await s3.upload(params).promise();
-    return uploadResult.Location; // 업로드된 객체의 URL
+    await s3.upload(params).promise();
+    return key;
   } catch (error) {
     console.error("S3 업로드 실패:", error);
     throw error;
